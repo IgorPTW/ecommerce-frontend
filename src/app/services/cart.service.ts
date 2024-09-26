@@ -21,14 +21,9 @@ export class CartService {
     let existingCartItem: CartItem = undefined!;
 
     if(this.cartItems.length > 0) {
+      
       // Find the item in the cart based on item id
-
-      for(let tempCartItem of this.cartItems) {
-        if(tempCartItem.id === theCartItem.id) {
-          existingCartItem = tempCartItem;
-          break;
-        }
-      }
+      existingCartItem = this.cartItems.find(tempCartItem => tempCartItem.id === theCartItem.id)!;
 
       // Check if we found it
       alreadyExistsInCart = (existingCartItem != undefined);
