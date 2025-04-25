@@ -4,20 +4,20 @@ import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-product-category-menu',
-  templateUrl: './product-category-menu.component.html',
-  styleUrl: './product-category-menu.component.css'
+  templateUrl: './product-category-menu.component.html', // ok
+  styleUrl: './product-category-menu.component.css' // ok
 })
-export class ProductCategoryMenuComponent implements OnInit {
+export class ProductCategoryMenuComponent implements OnInit { // READ!
 
   productCategories: ProductCategory[] = [];
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService) {} 
 
-  ngOnInit() {
+  ngOnInit() { // ok
     this.listProductCategories();
   }
 
-  listProductCategories() {
+  listProductCategories() { // ok
 
     this.productService.getProductCategories().subscribe(
       data => {

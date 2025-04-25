@@ -10,10 +10,10 @@ import { CartService } from '../../services/cart.service';
   templateUrl: './product-list-grid.component.html',
   styleUrl: './product-list.component.css'
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit { // READ!
 
-  products: Product[] = [];
   currentCategoryId: number = 1;
+  products: Product[] = [];
   previousCategoryId: number = 1;
   searchMode: boolean = false;
 
@@ -26,15 +26,15 @@ export class ProductListComponent implements OnInit {
 
   constructor(private productService: ProductService, 
               private cartService: CartService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute) { } // ok
 
-  ngOnInit(): void {
+  ngOnInit(): void { // ok
     this.route.paramMap.subscribe(() => {
       this.listProducts();
     });
   }
 
-  listProducts() {
+  listProducts() { // ok
 
     this.searchMode = this.route.snapshot.paramMap.has('keyword');
 
@@ -46,7 +46,7 @@ export class ProductListComponent implements OnInit {
     }
   }
 
-  handleSearchProducts() {
+  handleSearchProducts() { // ok
 
     const theKeyword: string = this.route.snapshot.paramMap.get('keyword')!;
 
@@ -66,7 +66,7 @@ export class ProductListComponent implements OnInit {
                                                theKeyword).subscribe(this.processResult());
   }
 
-  handleListProducts() {
+  handleListProducts() { // ok
     // Check if "id" parameter is available
     const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
 
@@ -92,8 +92,6 @@ export class ProductListComponent implements OnInit {
 
     this.previousCategoryId = this.currentCategoryId;
 
-    //console.log(`currentCategoryId=${this.currentCategoryId}, thePageNumber=${this.thePageNumber}`)
-
     // Now get the products for the given category id
     this.productService.getProductListPaginate(this.thePageNumber - 1,
                                                this.thePageSize,
@@ -101,13 +99,13 @@ export class ProductListComponent implements OnInit {
                                                .subscribe(this.processResult());
   }
 
-  updatePageSize(pageSize: string) {
+  updatePageSize(pageSize: string) { // ok
     this.thePageSize = +pageSize;
     this.thePageNumber = 1;
     this.listProducts();
   }
 
-  processResult() {
+  processResult() { // ok
     return (data: any) => {
       this.products = data._embedded.products;
       this.thePageNumber = data.page.number + 1;
@@ -116,7 +114,7 @@ export class ProductListComponent implements OnInit {
     }
   }
 
-  addToCart(theProduct: Product) {
+  addToCart(theProduct: Product) { // ok
 
     console.log(`Adding to cart: ${theProduct.name}, ${theProduct.unitPrice}`);
 

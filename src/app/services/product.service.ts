@@ -8,7 +8,7 @@ import { ProductCategory } from '../common/product-category';
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+export class ProductService { // READ!
 
   private baseUrl = 'http://localhost:8080/api/products';
 
@@ -16,7 +16,7 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getProduct(theProductId: number): Observable<Product> {
+  getProduct(theProductId: number): Observable<Product> { // ok
 
     // Build the URL based on product id
     const productUrl = `${this.baseUrl}/${theProductId}`;
@@ -26,7 +26,7 @@ export class ProductService {
 
   getProductListPaginate(thePage: number, 
                          thePageSize: number, 
-                         theCategoryId: number): Observable<GetResponseProducts> {
+                         theCategoryId: number): Observable<GetResponseProducts> { // ok
 
     // Build URL based on the category id, page and page size
     const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`
@@ -35,7 +35,7 @@ export class ProductService {
     return this.httpClient.get<GetResponseProducts>(searchUrl);
   }
 
-  getProductList(theCategoryId: number): Observable<Product[]> {
+  getProductList(theCategoryId: number): Observable<Product[]> { // ok
 
     // Build URL based on the category id
     const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`;
@@ -43,7 +43,7 @@ export class ProductService {
     return this.getProducts(searchUrl);
   }
 
-  searchProducts(theKeyword: string): Observable<Product[]> {
+  searchProducts(theKeyword: string): Observable<Product[]> { // ok
 
     // Build URL based on the keyword
     const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${theKeyword}`;
@@ -53,7 +53,7 @@ export class ProductService {
 
   searchProductsPaginate(thePage: number,
                          thePageSize: number,
-                         theKeyword: string): Observable<GetResponseProducts> {
+                         theKeyword: string): Observable<GetResponseProducts> { // ok
     
     // Build URL based on keyword, page and size
     const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${theKeyword}`
@@ -62,13 +62,13 @@ export class ProductService {
     return this.httpClient.get<GetResponseProducts>(searchUrl);
   }
 
-  private getProducts(searchUrl: string) : Observable<Product[]> {
+  private getProducts(searchUrl: string) : Observable<Product[]> { // ok
     return this.httpClient.get<GetResponseProducts>(searchUrl).pipe(
       map(response => response._embedded.products)
     );
   }
 
-  getProductCategories(): Observable<ProductCategory[]> {
+  getProductCategories(): Observable<ProductCategory[]> { // ok
 
     return this.httpClient.get<GetResponseProductCategory>(this.categoryUrl).pipe(
       map(response => response._embedded.productCategory)
@@ -76,7 +76,7 @@ export class ProductService {
   }  
 }
 
-interface GetResponseProducts {
+interface GetResponseProducts { // ok
   _embedded: {
     products: Product[];
   },
@@ -88,7 +88,7 @@ interface GetResponseProducts {
   }
 }
 
-interface GetResponseProductCategory {
+interface GetResponseProductCategory { // ok
   _embedded: {
     productCategory: ProductCategory[];
   }

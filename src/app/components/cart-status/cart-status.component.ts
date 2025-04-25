@@ -3,23 +3,23 @@ import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-cart-status',
-  templateUrl: './cart-status.component.html',
-  styleUrl: './cart-status.component.css'
+  templateUrl: './cart-status.component.html', // ok
+  styleUrl: './cart-status.component.css' // ok
 })
-export class CartStatusComponent implements OnInit {
+export class CartStatusComponent implements OnInit { // READ!
 
   totalPrice: number = 0.00;
   totalQuantity: number = 0;
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService) {} // ok
 
-  ngOnInit(): void {
+  ngOnInit(): void { // ok
     this.updateCartStatus();
   }
 
-  updateCartStatus() {
+  updateCartStatus() { // ok
 
-    // Subscribe to he cart totalPrice
+    // Subscribe to the cart totalPrice
     this.cartService.totalPrice.subscribe(
       data => this.totalPrice = data
     );

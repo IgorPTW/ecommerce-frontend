@@ -1,9 +1,9 @@
 import { FormControl, ValidationErrors } from "@angular/forms";
 
-export class Luv2ShopValidators {
+export class Luv2ShopValidators { // READ!
 
     // Whitespace validation
-    static notOnlyWhitespace(control: FormControl): ValidationErrors {
+    static notOnlyWhitespace(control: FormControl): ValidationErrors { // ok
         
         // Check if string only contains whitespace
         if((control.value != null) && (control.value.trim().length === 0)) {

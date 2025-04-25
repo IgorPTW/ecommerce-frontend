@@ -5,16 +5,16 @@ import { BehaviorSubject, Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class CartService {
+export class CartService { // READ!
 
-  cartItems: CartItem[] = [];
+  cartItems: CartItem[] = []; // ok
 
   totalPrice: Subject<number> = new BehaviorSubject<number>(0);
   totalQuantity: Subject<number> = new BehaviorSubject<number>(0);
 
   constructor() { }
 
-  addToCart(theCartItem: CartItem) {
+  addToCart(theCartItem: CartItem) { // ok
 
     // Check if we already have the item in our cart
     let alreadyExistsInCart: boolean = false;
@@ -41,7 +41,7 @@ export class CartService {
     this.computeCartTotals();
   }
 
-  computeCartTotals() {
+  computeCartTotals() { // ok
 
     let totalPriceValue: number = 0;
     let totalQuantityValue: number = 0;
@@ -59,7 +59,7 @@ export class CartService {
     this.logCartData(totalPriceValue, totalQuantityValue);
   }
 
-  logCartData(totalPriceValue: number, totalQuantityValue: number) {
+  logCartData(totalPriceValue: number, totalQuantityValue: number) { // ok
 
     console.log('Contents of the cart');
     
@@ -72,7 +72,7 @@ export class CartService {
     console.log(`----`);
   }
 
-  decrementQuantity(theCartItem: CartItem) {
+  decrementQuantity(theCartItem: CartItem) { // ok
 
     theCartItem.quantity--;
 
@@ -84,7 +84,7 @@ export class CartService {
     }
   }
 
-  remove(theCartItem: CartItem) {
+  remove(theCartItem: CartItem) { // ok
 
     // Get index of item in the array
     const itemIndex = this.cartItems.findIndex(tempCartItem => tempCartItem.id === theCartItem.id);

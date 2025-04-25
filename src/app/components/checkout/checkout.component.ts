@@ -15,7 +15,7 @@ import { OrderItem } from '../../common/order-item';
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css'
 })
-export class CheckoutComponent implements OnInit {
+export class CheckoutComponent implements OnInit { // READ!
 
   checkoutFormGroup: FormGroup;
 
@@ -35,9 +35,9 @@ export class CheckoutComponent implements OnInit {
               private luv2ShopFormService: Luv2ShopFormService,
               private cartService: CartService,
               private checkoutService: CheckoutService,
-              private router: Router) {}
+              private router: Router) {} // ok
 
-  ngOnInit(): void {
+  ngOnInit(): void { // ok
 
     this.reviewCartDetails();
 
@@ -101,7 +101,7 @@ export class CheckoutComponent implements OnInit {
     );
   }
 
-  reviewCartDetails() {
+  reviewCartDetails() { // ok
     // Subscribe to cartService.totalQuantity
     this.cartService.totalQuantity.subscribe(
       totalQuantity => this.totalQuantity = totalQuantity
@@ -113,28 +113,28 @@ export class CheckoutComponent implements OnInit {
     );
   }
 
-  get firstName() {return this.checkoutFormGroup.get('customer.firstName');}
-  get lastName() {return this.checkoutFormGroup.get('customer.lastName');}
-  get email() {return this.checkoutFormGroup.get('customer.email');}
+  get firstName() {return this.checkoutFormGroup.get('customer.firstName');} // ok
+  get lastName() {return this.checkoutFormGroup.get('customer.lastName');} // ok
+  get email() {return this.checkoutFormGroup.get('customer.email');} // ok
 
-  get shippingAddressStreet() {return this.checkoutFormGroup.get('shippingAddress.street');}
-  get shippingAddressCity() {return this.checkoutFormGroup.get('shippingAddress.city');}
-  get shippingAddressState() {return this.checkoutFormGroup.get('shippingAddress.state');}
-  get shippingAddressZipCode() {return this.checkoutFormGroup.get('shippingAddress.zipCode');}
-  get shippingAddressCountry() {return this.checkoutFormGroup.get('shippingAddress.country');}
+  get shippingAddressStreet() {return this.checkoutFormGroup.get('shippingAddress.street');} // ok
+  get shippingAddressCity() {return this.checkoutFormGroup.get('shippingAddress.city');} // ok
+  get shippingAddressState() {return this.checkoutFormGroup.get('shippingAddress.state');} // ok
+  get shippingAddressZipCode() {return this.checkoutFormGroup.get('shippingAddress.zipCode');} // ok
+  get shippingAddressCountry() {return this.checkoutFormGroup.get('shippingAddress.country');} // ok
 
-  get billingAddressStreet() {return this.checkoutFormGroup.get('billingAddress.street');}
-  get billingAddressCity() {return this.checkoutFormGroup.get('billingAddress.city');}
-  get billingAddressState() {return this.checkoutFormGroup.get('billingAddress.state');}
-  get billingAddressZipCode() {return this.checkoutFormGroup.get('billingAddress.zipCode');}
-  get billingAddressCountry() {return this.checkoutFormGroup.get('billingAddress.country');}
+  get billingAddressStreet() {return this.checkoutFormGroup.get('billingAddress.street');} // ok
+  get billingAddressCity() {return this.checkoutFormGroup.get('billingAddress.city');} // ok
+  get billingAddressState() {return this.checkoutFormGroup.get('billingAddress.state');} // ok
+  get billingAddressZipCode() {return this.checkoutFormGroup.get('billingAddress.zipCode');} // ok
+  get billingAddressCountry() {return this.checkoutFormGroup.get('billingAddress.country');} // ok
 
-  get creditCardType() { return this.checkoutFormGroup.get('creditCard.cardType');}
-  get creditCardNameOnCard() {return this.checkoutFormGroup.get('creditCard.nameOnCard');}
-  get creditCardNumber() {return this.checkoutFormGroup.get('creditCard.cardNumber');}
-  get creditCardSecurityCode() {return this.checkoutFormGroup.get('creditCard.securityCode');}
+  get creditCardType() { return this.checkoutFormGroup.get('creditCard.cardType');} // ok
+  get creditCardNameOnCard() {return this.checkoutFormGroup.get('creditCard.nameOnCard');} // ok
+  get creditCardNumber() {return this.checkoutFormGroup.get('creditCard.cardNumber');} // ok
+  get creditCardSecurityCode() {return this.checkoutFormGroup.get('creditCard.securityCode');} // ok
 
-  copyShippingAddressToBillingAddress(event) {
+  copyShippingAddressToBillingAddress(event) { // ok
     
     if(event.target.checked) {
       this.checkoutFormGroup.controls.billingAddress
@@ -151,7 +151,7 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  onSubmit() { // ok
     console.log("Handling the submit button");
 
     if(this.checkoutFormGroup.invalid) {
@@ -178,12 +178,12 @@ export class CheckoutComponent implements OnInit {
 
     // Populate purchase - Billing Address
 
-    // Populate purcase - Order and Order Iems
+    // Populate purcase - Order and Order Items
 
     // Call REST API via the CheckoutService
  }
 
-  handleMonthsAndYears() {
+  handleMonthsAndYears() { // ok
 
     const creditCardFormGroup = this.checkoutFormGroup.get('creditCard');
 
@@ -209,7 +209,7 @@ export class CheckoutComponent implements OnInit {
     );
   }
 
-  getStates(formGroupName: string) {
+  getStates(formGroupName: string) { // ok
 
     const formGroup = this.checkoutFormGroup.get(formGroupName);
 

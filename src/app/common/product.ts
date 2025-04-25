@@ -1,4 +1,4 @@
-export class Product {
+export class Product { // READ!
 
     constructor(public id: string,
                 public sku: string,

@@ -6,13 +6,13 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class CheckoutService {
+export class CheckoutService { // READ!
 
   private purchaseUrl = 'http://localhost:8080/api/checkout/purchase';
 
   constructor(private httpClient: HttpClient) { }
 
-  placeOrder(purchase: Purchase): Observable<any> {
+  placeOrder(purchase: Purchase): Observable<any> { // ok
     return this.httpClient.post<Purchase>(this.purchaseUrl, purchase);
   }
 }

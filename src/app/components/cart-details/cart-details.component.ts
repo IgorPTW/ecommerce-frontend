@@ -7,7 +7,7 @@ import { CartService } from '../../services/cart.service';
   templateUrl: './cart-details.component.html',
   styleUrl: './cart-details.component.css'
 })
-export class CartDetailsComponent implements OnInit {
+export class CartDetailsComponent implements OnInit { // READ!
 
   cartItems: CartItem[] = [];
   totalPrice: number = 0;
@@ -15,11 +15,11 @@ export class CartDetailsComponent implements OnInit {
 
   constructor(private cartService: CartService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { // ok
     this.listCartDetails();
   }
 
-  listCartDetails() {
+  listCartDetails() { // ok
 
     // Get a handle to the cart items
     this.cartItems = this.cartService.cartItems;
@@ -38,15 +38,15 @@ export class CartDetailsComponent implements OnInit {
     this.cartService.computeCartTotals();
   }
 
-  incrementQuantity(theCartItem: CartItem) {
+  incrementQuantity(theCartItem: CartItem) { // pk
     this.cartService.addToCart(theCartItem);
   }
 
-  decrementQuantity(theCartItem: CartItem) {
+  decrementQuantity(theCartItem: CartItem) { // ok
     this.cartService.decrementQuantity(theCartItem);
   }
 
-  remove(theCartItem: CartItem) {
+  remove(theCartItem: CartItem) { // ok
     this.cartService.remove(theCartItem);
   }
 }

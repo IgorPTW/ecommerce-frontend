@@ -8,21 +8,21 @@ import { State } from '../common/state';
 @Injectable({
   providedIn: 'root'
 })
-export class Luv2ShopFormService {
+export class Luv2ShopFormService { // READ!
 
   private countriesUrl = 'http://localhost:8080/api/countries';
   private statesUrl = 'http://localhost:8080/api/states';
 
   constructor(private httpClient: HttpClient) { }
 
-  getCountries(): Observable<Country[]> {
+  getCountries(): Observable<Country[]> { // ok
     
     return this.httpClient.get<GetResponseCountries>(this.countriesUrl).pipe(
       map(response => response._embedded.countries)
     );
   }
 
-  getStates(theCountryCode: string): Observable<State[]> {
+  getStates(theCountryCode: string): Observable<State[]> { // ok
     
     // Search url
     const searchStatesUrl = `${this.statesUrl}/search/findByCountryCode?code=${theCountryCode}`;
@@ -32,7 +32,7 @@ export class Luv2ShopFormService {
     );
   }
 
-  getCreditCardMonths(startMonth: number): Observable<number[]> {
+  getCreditCardMonths(startMonth: number): Observable<number[]> { // ok
     
     let data: number[] = [];
 
@@ -46,7 +46,7 @@ export class Luv2ShopFormService {
     return of(data);
   }
 
-  getCreditCardYears(): Observable<number[]> {
+  getCreditCardYears(): Observable<number[]> { // ok
 
     let data: number[] = [];
 
@@ -64,13 +64,13 @@ export class Luv2ShopFormService {
   }
 }
 
-interface GetResponseCountries {
+interface GetResponseCountries { // ok
   _embedded: {
     countries: Country[];
   }
 }
 
-interface GetResponseStates {
+interface GetResponseStates { // ok
   _embedded: {
     states: State[];
   }

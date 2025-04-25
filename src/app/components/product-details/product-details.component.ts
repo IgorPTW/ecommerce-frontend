@@ -10,21 +10,21 @@ import { CartItem } from '../../common/cart-item';
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css'
 })
-export class ProductDetailsComponent implements OnInit {
+export class ProductDetailsComponent implements OnInit {// READ!
 
   product!: Product;
 
   constructor(private productService: ProductService,
               private cartService: CartService,
-              private route: ActivatedRoute ) {}
+              private route: ActivatedRoute ) {} // ok
 
-  ngOnInit(): void {
+  ngOnInit(): void { // ok
     this.route.paramMap.subscribe(() => {
       this.handleProductDetails();
     })
   }
 
-  handleProductDetails() {
+  handleProductDetails() { // ok
 
     // Get the "id" param string and convert the string to a number using the "+" symbol
     const theProductId: number = +this.route.snapshot.paramMap.get('id')!;
@@ -36,7 +36,7 @@ export class ProductDetailsComponent implements OnInit {
     )
   }
 
-  addToCart() {
+  addToCart() { // ok
 
     console.log(`Adding to cart: ${this.product.name}, ${this.product.unitPrice}`);
 
