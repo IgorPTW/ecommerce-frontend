@@ -35,7 +35,7 @@ const oktaConfig = myAppConfig.oidc;
 
 const oktaAuth = new OktaAuth(oktaConfig);
 
-function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector) {
+function onAuthRequired(oktaAuth: OktaAuth, injector: Injector) {
   // Use injector to access any service available within your application
   const router = injector.get(Router);
 
@@ -45,7 +45,7 @@ function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector) {
 
 const routes: Routes = [
   {path: 'members', component: MembersPageComponent, canActivate: [OktaAuthGuard],
-                    data: {oAuthRequired: sendToLoginPage}},
+                    data: {oAuthRequired: onAuthRequired}},
   {path: 'login/callback', component: OktaCallbackComponent},
   {path: 'login', component: LoginComponent},
   {path: 'checkout', component: CheckoutComponent},
@@ -81,7 +81,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     OktaAuthModule
   ],
-  providers: [ProductService, {provide: OKTA_CONFIG, useValue: {oktaAuth}}],
+  providers: [ProductService, {provide: OKTA_CONFIG, useValue: {oktaAuth, onAuthRequired}}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
