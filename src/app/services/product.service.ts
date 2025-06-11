@@ -32,7 +32,9 @@ export class ProductService { // READ!
     // Build URL based on the category id, page and page size
     const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`
                     + `&page=${thePage}&size=${thePageSize}`;
-
+    
+    console.log(`Getting products from - ${searchUrl}`);
+                  
     return this.httpClient.get<GetResponseProducts>(searchUrl);
   }
 
