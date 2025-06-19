@@ -10,13 +10,15 @@ import { Router } from '@angular/router';
 import { Order } from '../../common/order';
 import { OrderItem } from '../../common/order-item';
 import { Purchase } from '../../common/purchase';
+import { environment } from '../../../environments/environment';
+import { PaymentInfo } from '../../common/payment-info';
 
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css'
 })
-export class CheckoutComponent implements OnInit { // READ!
+export class CheckoutComponent implements OnInit {
 
   checkoutFormGroup: FormGroup;
 
@@ -33,13 +35,18 @@ export class CheckoutComponent implements OnInit { // READ!
 
   storage: Storage = sessionStorage;
 
+  // Initialize Stripe API
+  stripe = Stripe(environment.stripePublishableKey);
+
+  paymentInfo: PaymentInfo = new PaymentInfo();
+
   constructor(private formBuilder: FormBuilder,
               private luv2ShopFormService: Luv2ShopFormService,
               private cartService: CartService,
               private checkoutService: CheckoutService,
-              private router: Router) {} // ok
+              private router: Router) {}
 
-  ngOnInit(): void { // ok
+  ngOnInit(): void {
 
     this.reviewCartDetails();
 
@@ -106,7 +113,7 @@ export class CheckoutComponent implements OnInit { // READ!
     );
   }
 
-  reviewCartDetails() { // ok
+  reviewCartDetails() {
     // Subscribe to cartService.totalQuantity
     this.cartService.totalQuantity.subscribe(
       totalQuantity => this.totalQuantity = totalQuantity
@@ -118,9 +125,9 @@ export class CheckoutComponent implements OnInit { // READ!
     );
   }
 
-  get firstName() {return this.checkoutFormGroup.get('customer.firstName');} // ok
-  get lastName() {return this.checkoutFormGroup.get('customer.lastName');} // ok
-  get email() {return this.checkoutFormGroup.get('customer.email');} // ok
+  get firstName() {return this.checkoutFormGroup.get('customer.firstName');}
+  get lastName() {return this.checkoutFormGroup.get('customer.lastName');}
+  get email() {return this.checkoutFormGroup.get('customer.email');} 
 
   get shippingAddressStreet() {return this.checkoutFormGroup.get('shippingAddress.street');} // ok
   get shippingAddressCity() {return this.checkoutFormGroup.get('shippingAddress.city');} // ok
@@ -139,7 +146,7 @@ export class CheckoutComponent implements OnInit { // READ!
   get creditCardNumber() {return this.checkoutFormGroup.get('creditCard.cardNumber');} // ok
   get creditCardSecurityCode() {return this.checkoutFormGroup.get('creditCard.securityCode');} // ok
 
-  copyShippingAddressToBillingAddress(event) { // ok
+  copyShippingAddressToBillingAddress(event) {
     
     if(event.target.checked) {
       this.checkoutFormGroup.controls.billingAddress
@@ -156,7 +163,7 @@ export class CheckoutComponent implements OnInit { // READ!
     }
   }
 
-  onSubmit() { // ok
+  onSubmit() {
     console.log("Handling the submit button");
 
     if(this.checkoutFormGroup.invalid) {
