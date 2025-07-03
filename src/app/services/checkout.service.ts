@@ -10,7 +10,7 @@ import { PaymentInfo } from '../common/payment-info';
 })
 export class CheckoutService { // READ!
 
-  private purchaseUrl = environment.luv2shopApiUrl + 'checkout/purchase';
+  private purchaseUrl = environment.luv2shopApiUrl + '/checkout/purchase';
 
   private paymentIntentUrl = environment.luv2shopApiUrl + '/checkout/payment-intent';
 

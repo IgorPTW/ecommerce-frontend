@@ -12,6 +12,7 @@ import { OrderItem } from '../../common/order-item';
 import { Purchase } from '../../common/purchase';
 import { environment } from '../../../environments/environment';
 import { PaymentInfo } from '../../common/payment-info';
+import { loadStripe } from '@stripe/stripe-js';
 
 @Component({
   selector: 'app-checkout',
@@ -36,7 +37,8 @@ export class CheckoutComponent implements OnInit {
   storage: Storage = sessionStorage;
 
   // Initialize Stripe API
-  stripe = Stripe(environment.stripePublishableKey);
+  //stripe = Stripe(environment.stripePublishableKey);
+  stripe: any;
 
   paymentInfo: PaymentInfo = new PaymentInfo();
   cardElement: any;
@@ -48,7 +50,10 @@ export class CheckoutComponent implements OnInit {
               private checkoutService: CheckoutService,
               private router: Router) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
+
+    // Initialize Stripe
+    this.stripe = await loadStripe(environment.stripePublishableKey);
 
     // Setup Stripe payment form
     this.setupStripePaymentForm();
@@ -78,14 +83,14 @@ export class CheckoutComponent implements OnInit {
         country: new FormControl('', [Validators.required]),
         zipCode: new FormControl('', [Validators.required, Validators.minLength(2), Luv2ShopValidators.notOnlyWhitespace])
       }),
-     /* creditCard: this.formBuilder.group({
-        cardType:    new FormControl('', [Validators.required]),
+      creditCard: this.formBuilder.group({
+        /*cardType:    new FormControl('', [Validators.required]),
         nameOnCard:  new FormControl('', [Validators.required, Validators.minLength(2), Luv2ShopValidators.notOnlyWhitespace]),
         cardNumber:  new FormControl('', [Validators.required, Validators.pattern('[0-9]{16}')]),
         securityCode: new FormControl('', [Validators.required, Validators.pattern('[0-9]{3}')]),
         expirationMonth: [''],
-        expirationYear: ['']
-      }) */
+        expirationYear: ['']*/
+      })
     });
 
     /*
@@ -123,11 +128,16 @@ export class CheckoutComponent implements OnInit {
 
   setupStripePaymentForm() {
 
+    if(!this.stripe) {
+      console.error('Stripe has not been initialized');
+      return;
+    }
+
     // Get a handle to stripe elements
     var elements = this.stripe.elements();
 
     // Create a card element
-    this.cardElement = elements.create('create', {hidePostalCode: true});
+    this.cardElement = elements.create('card', {hidePostalCode: true});
 
     // Add an instance of card UI component into the 'card-element' div
     this.cardElement.mount('#card-element');
@@ -242,9 +252,10 @@ export class CheckoutComponent implements OnInit {
     purchase.orderItems = orderItems;
 
     // Compute payment info
-    this.paymentInfo.amount = this.totalPrice * 100;
+    this.paymentInfo.amount = Math.round(this.totalPrice * 100);
     this.paymentInfo.currency = "USD";
 
+    console.log(`Payment amount: ${this.paymentInfo.amount}`);
     // if Valid form then
     // - Create payment intent
     // - Confirm card payment
