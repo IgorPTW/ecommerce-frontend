@@ -16,7 +16,7 @@ HTTPS/SSL
 
 -------------------------------------------------------------------------
 
-Link to backend project: https://github.com/IgorPTW/ecommerce-backend
+Link to back-end project: https://github.com/IgorPTW/ecommerce-backend
 
 -------------------------------------------------------------------------
 
